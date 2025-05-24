@@ -1,0 +1,2219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* GitHub-inspired Light Mode */
+            --bg-canvas: #ffffff;
+            --bg-default: #f6f8fa;
+            --bg-muted: #f6f8fa;
+            --bg-subtle: #f6f8fa;
+            --bg-overlay: #ffffff;
+            
+            --text-primary: #1f2328;
+            --text-secondary: #656d76;
+            --text-muted: #8c959f;
+            --text-placeholder: #8c959f;
+            
+            --border-default: #d1d9e0;
+            --border-muted: #d8dee4;
+            --border-subtle: #f6f8fa;
+            
+            /* Brand Colors - GitHub style */
+            --accent-fg: #0969da;
+            --accent-emphasis: #0969da;
+            --accent-muted: rgba(9, 105, 218, 0.1);
+            --accent-subtle: #ddf4ff;
+            
+            /* Success */
+            --success-fg: #1a7f37;
+            --success-emphasis: #1f883d;
+            --success-muted: rgba(26, 127, 55, 0.1);
+            --success-subtle: #dcffe4;
+            
+            /* Danger */
+            --danger-fg: #d1242f;
+            --danger-emphasis: #cf222e;
+            --danger-muted: rgba(209, 36, 47, 0.1);
+            --danger-subtle: #ffebe9;
+            
+            /* Warning */
+            --attention-fg: #9a6700;
+            --attention-emphasis: #bf8700;
+            --attention-muted: rgba(154, 103, 0, 0.1);
+            --attention-subtle: #fff8c5;
+            
+            /* Neutral */
+            --neutral-muted: rgba(175, 184, 193, 0.2);
+            --neutral-subtle: #afb8c1;
+            
+            /* Shadows */
+            --shadow-small: 0 1px 3px rgba(31, 35, 40, 0.12), 0 1px 2px rgba(31, 35, 40, 0.24);
+            --shadow-medium: 0 3px 6px rgba(31, 35, 40, 0.15), 0 2px 4px rgba(31, 35, 40, 0.12);
+            --shadow-large: 0 8px 24px rgba(31, 35, 40, 0.12), 0 4px 8px rgba(31, 35, 40, 0.08);
+            --shadow-extra-large: 0 12px 28px rgba(31, 35, 40, 0.15), 0 4px 10px rgba(31, 35, 40, 0.1);
+        }
+
+        [data-theme="dark"] {
+            /* GitHub-inspired Dark Mode */
+            --bg-canvas: #0d1117;
+            --bg-default: #010409;
+            --bg-muted: #161b22;
+            --bg-subtle: #21262d;
+            --bg-overlay: #161b22;
+            
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #7d8590;
+            --text-placeholder: #7d8590;
+            
+            --border-default: #30363d;
+            --border-muted: #21262d;
+            --border-subtle: #161b22;
+            
+            /* Brand Colors - Dark mode */
+            --accent-fg: #58a6ff;
+            --accent-emphasis: #1f6feb;
+            --accent-muted: rgba(88, 166, 255, 0.15);
+            --accent-subtle: rgba(56, 139, 253, 0.1);
+            
+            /* Success */
+            --success-fg: #3fb950;
+            --success-emphasis: #238636;
+            --success-muted: rgba(63, 185, 80, 0.15);
+            --success-subtle: rgba(46, 160, 67, 0.1);
+            
+            /* Danger */
+            --danger-fg: #f85149;
+            --danger-emphasis: #da3633;
+            --danger-muted: rgba(248, 81, 73, 0.15);
+            --danger-subtle: rgba(248, 81, 73, 0.1);
+            
+            /* Warning */
+            --attention-fg: #d29922;
+            --attention-emphasis: #9e6a03;
+            --attention-muted: rgba(210, 153, 34, 0.15);
+            --attention-subtle: rgba(187, 128, 9, 0.1);
+            
+            /* Neutral */
+            --neutral-muted: rgba(110, 118, 129, 0.2);
+            --neutral-subtle: #6e7681;
+            
+            /* Shadows */
+            --shadow-small: 0 0 transparent;
+            --shadow-medium: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+            --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+            --shadow-extra-large: 0 12px 28px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-muted);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral-subtle);
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: var(--bg-muted);
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--neutral-subtle) var(--bg-muted);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg-canvas);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.2s ease;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--bg-overlay);
+            border-bottom: 1px solid var(--border-default);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header h1 i {
+            color: var(--accent-fg);
+            font-size: 1.125rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-default);
+            border-radius: 6px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-muted);
+            border-color: var(--border-muted);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            height: calc(100vh - 120px);
+        }
+
+        .panel {
+            background: var(--bg-overlay);
+            border-radius: 6px;
+            border: 1px solid var(--border-default);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .panel-header {
+            background: var(--bg-subtle);
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-default);
+            flex-shrink: 0;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .panel-title i {
+            color: var(--accent-fg);
+            font-size: 0.875rem;
+        }
+
+        .panel-content {
+            padding: 1.25rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .form-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-muted);
+        }
+
+        .section-header h3 {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-header i {
+            color: var(--accent-fg);
+            width: 14px;
+            font-size: 0.8125rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-default);
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            background: var(--bg-canvas);
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-fg);
+            box-shadow: 0 0 0 3px var(--accent-muted);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+            line-height: 1.45;
+        }
+
+        .key-value-container {
+            border: 1px solid var(--border-default);
+            border-radius: 6px;
+            padding: 0.75rem;
+            background: var(--bg-subtle);
+        }
+
+        .key-value-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .key-value-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--accent-emphasis);
+            color: var(--bg-canvas);
+            border-color: var(--accent-emphasis);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--accent-fg);
+            border-color: var(--accent-fg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-canvas);
+            color: var(--text-primary);
+            border-color: var(--border-default);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-subtle);
+            border-color: var(--border-muted);
+        }
+
+        .btn-danger {
+            background: var(--danger-emphasis);
+            color: var(--bg-canvas);
+            border-color: var(--danger-emphasis);
+            padding: 0.375rem;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-fg);
+            border-color: var(--danger-fg);
+        }
+
+        .btn-success {
+            background: var(--success-emphasis);
+            color: var(--bg-canvas);
+            border-color: var(--success-emphasis);
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-success:hover {
+            background: var(--success-fg);
+            border-color: var(--success-fg);
+        }
+
+        .btn-send {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-default);
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+            background: var(--bg-subtle);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            background: transparent;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+            background: var(--bg-muted);
+        }
+
+        .tab.active {
+            color: var(--accent-fg);
+            border-bottom-color: var(--accent-fg);
+            background: var(--bg-canvas);
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        .status-card {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .status-success {
+            background: var(--success-subtle);
+            color: var(--success-fg);
+            border-color: var(--success-muted);
+        }
+
+        .status-error {
+            background: var(--danger-subtle);
+            color: var(--danger-fg);
+            border-color: var(--danger-muted);
+        }
+
+        .code-block {
+            background: var(--bg-subtle);
+            color: var(--text-primary);
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.75rem;
+            line-height: 1.45;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            position: relative;
+            flex: 1;
+            border: 1px solid var(--border-default);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: var(--bg-canvas);
+            border: 1px solid var(--border-default);
+            color: var(--text-secondary);
+            padding: 0.375rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .copy-btn:hover {
+            background: var(--bg-muted);
+            border-color: var(--border-muted);
+            color: var(--text-primary);
+            opacity: 1;
+        }
+
+        .copy-btn.copied {
+            background: var(--success-subtle);
+            border-color: var(--success-muted);
+            color: var(--success-fg);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .content-card {
+            border: 1px solid var(--border-default);
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--bg-canvas);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .content-card:hover {
+            border-color: var(--border-muted);
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+
+        .content-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+
+        .content-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .content-card:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .content-info {
+            padding: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .content-source {
+            font-weight: 600;
+            color: var(--accent-fg);
+            margin-bottom: 0.375rem;
+            font-size: 0.6875rem;
+        }
+
+        .content-url {
+            word-break: break-all;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+            background: var(--bg-subtle);
+            padding: 0.375rem;
+            border-radius: 3px;
+            margin-top: 0.375rem;
+            border: 1px solid var(--border-muted);
+            font-size: 0.6875rem;
+        }
+
+        .content-url a {
+            color: var(--accent-fg);
+            text-decoration: none;
+        }
+
+        .content-url a:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: var(--text-muted);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+            color: var(--accent-fg);
+        }
+
+        .empty-state h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 2rem;
+            color: var(--accent-fg);
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border-default);
+            border-top: 2px solid var(--accent-fg);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .json-string { color: var(--success-fg); }
+        .json-number { color: var(--attention-fg); }
+        .json-boolean { color: var(--accent-fg); }
+        .json-null { color: var(--danger-fg); }
+        .json-key { color: var(--text-primary); font-weight: 600; }
+
+        .detection-section {
+            background: var(--bg-subtle);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-default);
+            margin-bottom: 1rem;
+        }
+
+        .detection-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .detection-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+        }
+
+        .detection-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: var(--accent-subtle);
+            color: var(--accent-fg);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            border: 1px solid var(--accent-muted);
+        }
+
+        .remove-tag {
+            background: none;
+            border: none;
+            color: var(--accent-fg);
+            cursor: pointer;
+            padding: 0;
+            margin-left: 0.125rem;
+            font-size: 0.625rem;
+        }
+
+        .add-tag-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .add-tag-input {
+            flex: 1;
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border-default);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            background: var(--bg-canvas);
+            color: var(--text-primary);
+        }
+
+        .btn-small {
+            padding: 0.375rem 0.5rem;
+            font-size: 0.6875rem;
+        }
+
+        /* Gallery Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-overlay);
+            border-radius: 8px;
+            max-width: 98vw;
+            max-height: 98vh;
+            width: 90vw;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-default);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-default);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-subtle);
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--bg-muted);
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .gallery-section {
+            margin-bottom: 2rem;
+        }
+
+        .gallery-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-item {
+            border: 1px solid var(--border-default);
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--bg-canvas);
+            transition: all 0.2s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--accent-fg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .gallery-item-info {
+            padding: 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .gallery-item-source {
+            font-weight: 600;
+            color: var(--accent-fg);
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-item-url {
+            color: var(--text-secondary);
+            word-break: break-all;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+
+        .gallery-item-url a {
+            color: var(--accent-fg);
+            text-decoration: none;
+        }
+
+        .gallery-item-url a:hover {
+            text-decoration: underline;
+        }
+
+        .video-links {
+            margin-top: 1.5rem;
+        }
+
+        .video-link-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-default);
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .video-link-item:hover {
+            border-color: var(--accent-fg);
+            box-shadow: var(--shadow-small);
+        }
+
+        .video-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .video-info {
+            flex: 1;
+        }
+
+        .video-source {
+            font-weight: 600;
+            color: var(--accent-fg);
+            margin-bottom: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .video-url {
+            color: var(--text-secondary);
+            word-break: break-all;
+            font-family: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.75rem;
+        }
+
+        .video-url a {
+            color: var(--accent-fg);
+            text-decoration: none;
+        }
+
+        .video-url a:hover {
+            text-decoration: underline;
+        }
+
+        .video-preview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .video-preview i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            z-index: 1;
+        }
+
+        .video-preview span {
+            font-size: 0.875rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            width: 100%;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            object-fit: contain;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                height: auto;
+            }
+            
+            .panel {
+                height: 60vh;
+            }
+
+            .modal-content {
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.125rem;
+            }
+            
+            .key-value-row {
+                grid-template-columns: 1fr;
+                gap: 0.375rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-link-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Gallery Modal -->
+    <div class="modal-overlay" id="galleryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-images"></i>
+                    <span id="modalTitle">Media Gallery</span>
+                </div>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Gallery content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-content">
+            <h1>
+                <i class="fas fa-flask"></i>
+                API Tester Professional
+            </h1>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <span>Dark</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-grid">
+            <!-- Configuration Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-cog"></i>
+                        Request Configuration
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <form id="apiForm">
+                        <!-- Endpoint Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-globe"></i>
+                                <h3>Endpoint</h3>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">API URL</label>
+                                <input type="url" id="apiUrl" class="form-input" placeholder="https://api.example.com/endpoint" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">HTTP Method</label>
+                                <select id="httpMethod" class="form-select">
+                                    <option value="GET">GET</option>
+                                    <option value="POST">POST</option>
+                                    <option value="PUT">PUT</option>
+                                    <option value="DELETE">DELETE</option>
+                                    <option value="PATCH">PATCH</option>
+                                    <option value="OPTIONS">OPTIONS</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Headers Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-key"></i>
+                                <h3>Headers</h3>
+                            </div>
+                            <div class="key-value-container" id="headersContainer">
+                                <div class="key-value-row">
+                                    <input type="text" class="form-input header-key" placeholder="Header name">
+                                    <input type="text" class="form-input header-value" placeholder="Header value">
+                                    <button type="button" class="btn btn-danger remove-pair">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success" id="addHeader">
+                                <i class="fas fa-plus"></i>
+                                Add Header
+                            </button>
+                        </div>
+
+                        <!-- Parameters Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-search"></i>
+                                <h3>Query Parameters</h3>
+                            </div>
+                            <div class="key-value-container" id="paramsContainer">
+                                <div class="key-value-row">
+                                    <input type="text" class="form-input param-key" placeholder="Parameter name">
+                                    <input type="text" class="form-input param-value" placeholder="Parameter value">
+                                    <button type="button" class="btn btn-danger remove-pair">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success" id="addParam">
+                                <i class="fas fa-plus"></i>
+                                Add Parameter
+                            </button>
+                        </div>
+
+                        <!-- Request Body Section -->
+                        <div class="form-section" id="requestBodySection">
+                            <div class="section-header">
+                                <i class="fas fa-file-code"></i>
+                                <h3>Request Body</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">JSON Payload</label>
+                                <textarea id="requestBody" class="form-textarea" placeholder='{"key": "value"}'></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Raw JSON Section -->
+                        <div class="form-section raw-json-section">
+                            <div class="section-header">
+                                <i class="fas fa-code"></i>
+                                <h3>Raw JSON Input</h3>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Paste Raw JSON</label>
+                                <textarea id="rawJsonInput" class="form-textarea" placeholder='Paste your raw JSON here...'></textarea>
+                            </div>
+                            <button type="button" class="btn btn-secondary" id="parseRawJson">
+                                <i class="fas fa-magic"></i>
+                                Parse & Fill Form
+                            </button>
+                        </div>
+
+                        <!-- Media Detection Section (Images & Videos) -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-photo-video"></i>
+                                <h3>Media Detection (Images & Videos)</h3>
+                            </div>
+                            <div class="detection-section">
+                                <div class="detection-header">
+                                    <span style="font-size: 0.75rem; font-weight: 600;">Media Key Names</span>
+                                </div>
+                                <div class="detection-list" id="mediaKeysList">
+                                    <!-- Default media keys will be added here -->
+                                </div>
+                                <div class="add-tag-form">
+                                    <input type="text" id="newMediaKey" class="add-tag-input" placeholder="Add media key (e.g., video_url)">
+                                    <button type="button" class="btn btn-secondary btn-small" id="addMediaKey">
+                                        <i class="fas fa-plus"></i>
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Link Detection Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <i class="fas fa-link"></i>
+                                <h3>Link Detection</h3>
+                            </div>
+                            <div class="detection-section">
+                                <div class="detection-header">
+                                    <span style="font-size: 0.75rem; font-weight: 600;">Link Key Names</span>
+                                </div>
+                                <div class="detection-list" id="linkKeysList">
+                                    <!-- Default link keys will be added here -->
+                                </div>
+                                <div class="add-tag-form">
+                                    <input type="text" id="newLinkKey" class="add-tag-input" placeholder="Add link key (e.g., website_url)">
+                                    <button type="button" class="btn btn-secondary btn-small" id="addLinkKey">
+                                        <i class="fas fa-plus"></i>
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-send" id="sendButton">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Response Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-chart-line"></i>
+                        Response
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="formatted">
+                            <i class="fas fa-code"></i>
+                            Formatted
+                        </div>
+                        <div class="tab" data-tab="raw">
+                            <i class="fas fa-file-alt"></i>
+                            Raw
+                        </div>
+                        <div class="tab" data-tab="media">
+                            <i class="fas fa-photo-video"></i>
+                            Media
+                        </div>
+                        <div class="tab" data-tab="links">
+                            <i class="fas fa-link"></i>
+                            Links
+                        </div>
+                    </div>
+
+                    <div id="statusBar" class="status-bar"></div>
+
+                    <div class="tab-content active" id="formatted-content">
+                        <div class="code-block" id="formattedJson">
+                            <div class="empty-state">
+                                <i class="fas fa-code"></i>
+                                <h3>Ready to Test</h3>
+                                <p>Configure your API request and click "Send Request" to see the formatted response.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="raw-content">
+                        <div class="code-block" id="rawJson">
+                            <div class="empty-state">
+                                <i class="fas fa-file-alt"></i>
+                                <h3>Raw Response</h3>
+                                <p>The raw API response will be displayed here.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="media-content">
+                        <div id="mediaDisplay">
+                            <div class="empty-state">
+                                <i class="fas fa-photo-video"></i>
+                                <h3>Media Gallery</h3>
+                                <p>Images and videos detected in the API response will be displayed here.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="links-content">
+                        <div id="linksDisplay">
+                            <div class="empty-state">
+                                <i class="fas fa-link"></i>
+                                <h3>Links Collection</h3>
+                                <p>Links detected in the API response will be displayed here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class APITesterProfessional {
+            constructor() {
+                // Combined media keys for images and videos
+                this.mediaKeys = ['src', 'url', 'href', 'image', 'thumbnail', 'photo', 'picture', 'avatar', 'icon', 'video', 'videos', 'movie', 'clip', 'media'];
+                this.linkKeys = ['url', 'link', 'href', 'website', 'homepage', 'site', 'web', 'domain'];
+                this.mediaGroups = []; // Store media grouped by their array/object path
+                this.initializeTheme();
+                this.initializeDetectionKeys();
+                this.initializeEventListeners();
+                this.updateRequestBodyVisibility();
+            }
+
+            initializeTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                this.setTheme(savedTheme);
+            }
+
+            setTheme(theme) {
+                const body = document.body;
+                const themeToggle = document.getElementById('themeToggle');
+                
+                body.setAttribute('data-theme', theme);
+                
+                if (theme === 'dark') {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i><span>Dark</span>';
+                }
+                
+                localStorage.setItem('theme', theme);
+            }
+
+            initializeDetectionKeys() {
+                const mediaContainer = document.getElementById('mediaKeysList');
+                const linkContainer = document.getElementById('linkKeysList');
+                
+                this.mediaKeys.forEach(key => {
+                    this.addDetectionTag(key, mediaContainer, 'media');
+                });
+                
+                this.linkKeys.forEach(key => {
+                    this.addDetectionTag(key, linkContainer, 'link');
+                });
+            }
+
+            addDetectionTag(key, container, type) {
+                const tag = document.createElement('div');
+                tag.className = 'detection-tag';
+                tag.innerHTML = `
+                    ${key}
+                    <button type="button" class="remove-tag" data-key="${key}" data-type="${type}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(tag);
+            }
+
+            initializeEventListeners() {
+                // Theme toggle
+                document.getElementById('themeToggle').addEventListener('click', () => {
+                    const currentTheme = document.body.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    this.setTheme(newTheme);
+                });
+
+                // Modal events
+                document.getElementById('closeModal').addEventListener('click', () => {
+                    this.closeModal();
+                });
+
+                document.getElementById('galleryModal').addEventListener('click', (e) => {
+                    if (e.target.id === 'galleryModal') {
+                        this.closeModal();
+                    }
+                });
+
+                // ESC key to close modal
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        this.closeModal();
+                    }
+                });
+
+                // Form submission
+                document.getElementById('apiForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.sendRequest();
+                });
+
+                // Tab switching
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
+                });
+
+                // Add/Remove functionality
+                document.getElementById('addHeader').addEventListener('click', () => {
+                    this.addKeyValuePair('headersContainer', 'header');
+                });
+
+                document.getElementById('addParam').addEventListener('click', () => {
+                    this.addKeyValuePair('paramsContainer', 'param');
+                });
+
+                // Raw JSON parsing
+                document.getElementById('parseRawJson').addEventListener('click', () => {
+                    this.parseRawJson();
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (e.target.closest('.remove-pair')) {
+                        this.removeKeyValuePair(e.target.closest('.remove-pair'));
+                    }
+                    if (e.target.closest('.copy-btn')) {
+                        this.copyToClipboard(e.target.closest('.copy-btn'));
+                    }
+                    if (e.target.closest('.remove-tag')) {
+                        const button = e.target.closest('.remove-tag');
+                        this.removeDetectionKey(button.dataset.key, button.dataset.type);
+                    }
+                    if (e.target.closest('.remove-tag')) {
+                        const button = e.target.closest('.remove-tag');
+                        this.removeDetectionKey(button.dataset.key, button.dataset.type);
+                    }
+                });
+
+                // HTTP method change
+                document.getElementById('httpMethod').addEventListener('change', () => {
+                    this.updateRequestBodyVisibility();
+                });
+
+                // Detection key management
+                document.getElementById('addMediaKey').addEventListener('click', () => {
+                    this.addNewDetectionKey('media');
+                });
+
+                document.getElementById('addLinkKey').addEventListener('click', () => {
+                    this.addNewDetectionKey('link');
+                });
+
+                document.getElementById('newMediaKey').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.addNewDetectionKey('media');
+                    }
+                });
+
+                document.getElementById('newLinkKey').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.addNewDetectionKey('link');
+                    }
+                });
+            }
+
+            openGalleryModal(groupData) {
+                const modal = document.getElementById('galleryModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const modalBody = document.getElementById('modalBody');
+                
+                // Clear existing content
+                modalBody.innerHTML = '';
+                
+                modalTitle.innerHTML = `<i class="fas fa-images"></i> Media Gallery - ${groupData.groupName}`;
+                
+                // Create images section
+                if (groupData.images.length > 0) {
+                    const imagesSection = document.createElement('div');
+                    imagesSection.className = 'gallery-section';
+                    imagesSection.innerHTML = `
+                        <h3><i class="fas fa-images"></i> Images (${groupData.images.length})</h3>
+                    `;
+                    
+                    const galleryGrid = document.createElement('div');
+                    galleryGrid.className = 'gallery-grid';
+                    
+                    groupData.images.forEach((imageData, index) => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-item';
+                        
+                        galleryItem.innerHTML = `
+                            <img src="${imageData.url}" alt="Image ${index + 1}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="display: none; padding: 2rem; text-align: center; color: var(--danger-fg);">
+                                <i class="fas fa-exclamation-triangle"></i><br>
+                                <small>Failed to load</small>
+                            </div>
+                            <div class="gallery-item-info">
+                                <div class="gallery-item-source">${imageData.source}</div>
+                                <div class="gallery-item-url">
+                                    <a href="${imageData.url}" target="_blank" rel="noopener noreferrer">
+                                        ${imageData.url}
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        
+                        galleryGrid.appendChild(galleryItem);
+                    });
+                    
+                    imagesSection.appendChild(galleryGrid);
+                    modalBody.appendChild(imagesSection);
+                }
+                
+                // Create videos section
+                if (groupData.videos.length > 0) {
+                    const videosSection = document.createElement('div');
+                    videosSection.className = 'gallery-section video-links';
+                    videosSection.innerHTML = `
+                        <h3><i class="fas fa-video"></i> Videos (${groupData.videos.length})</h3>
+                    `;
+                    
+                    groupData.videos.forEach((videoData, index) => {
+                        const videoItem = document.createElement('div');
+                        videoItem.className = 'video-link-item';
+                        
+                        videoItem.innerHTML = `
+                            <div class="video-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-source">${videoData.source}</div>
+                                <div class="video-url">
+                                    <a href="${videoData.url}" target="_blank" rel="noopener noreferrer">
+                                        ${videoData.url}
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        
+                        videosSection.appendChild(videoItem);
+                    });
+                    
+                    modalBody.appendChild(videosSection);
+                }
+                
+                // If no images or videos found
+                if (groupData.images.length === 0 && groupData.videos.length === 0) {
+                    modalBody.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-images"></i>
+                            <h3>No Media Found</h3>
+                            <p>No images or videos found in this group.</p>
+                        </div>
+                    `;
+                }
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeModal() {
+                const modal = document.getElementById('galleryModal');
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            parseRawJson() {
+                const rawInput = document.getElementById('rawJsonInput').value.trim();
+                if (!rawInput) return;
+
+                try {
+                    const parsed = JSON.parse(rawInput);
+                    
+                    // Fill the request body
+                    document.getElementById('requestBody').value = JSON.stringify(parsed, null, 2);
+                    
+                    // Show success message
+                    const statusBar = document.getElementById('statusBar');
+                    statusBar.innerHTML = `
+                        <div class="status-card status-success">
+                            <i class="fas fa-check-circle"></i>
+                            <div>JSON parsed successfully and filled into request body</div>
+                        </div>
+                    `;
+                    
+                    // Clear the raw input
+                    document.getElementById('rawJsonInput').value = '';
+                    
+                    // Clear success message after 3 seconds
+                    setTimeout(() => {
+                        statusBar.innerHTML = '';
+                    }, 3000);
+                    
+                } catch (error) {
+                    const statusBar = document.getElementById('statusBar');
+                    statusBar.innerHTML = `
+                        <div class="status-card status-error">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>Invalid JSON: ${error.message}</div>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        statusBar.innerHTML = '';
+                    }, 5000);
+                }
+            }
+
+            addNewDetectionKey(type) {
+                const inputId = type === 'media' ? 'newMediaKey' : 'newLinkKey';
+                const containerId = type === 'media' ? 'mediaKeysList' : 'linkKeysList';
+                const keysArray = type === 'media' ? this.mediaKeys : this.linkKeys;
+                
+                const input = document.getElementById(inputId);
+                const key = input.value.trim();
+                
+                if (key && !keysArray.includes(key)) {
+                    keysArray.push(key);
+                    const container = document.getElementById(containerId);
+                    this.addDetectionTag(key, container, type);
+                    input.value = '';
+                }
+            }
+
+            removeDetectionKey(key, type) {
+                if (type === 'media') {
+                    this.mediaKeys = this.mediaKeys.filter(k => k !== key);
+                } else {
+                    this.linkKeys = this.linkKeys.filter(k => k !== key);
+                }
+                
+                const tag = document.querySelector(`[data-key="${key}"][data-type="${type}"]`).closest('.detection-tag');
+                tag.remove();
+            }
+
+            updateRequestBodyVisibility() {
+                const method = document.getElementById('httpMethod').value;
+                const bodySection = document.getElementById('requestBodySection');
+                const rawJsonSection = document.querySelector('.raw-json-section');
+                
+                const showBody = !['GET', 'DELETE', 'OPTIONS'].includes(method);
+                bodySection.style.display = showBody ? 'block' : 'none';
+                rawJsonSection.style.display = showBody ? 'block' : 'none';
+            }
+
+            addKeyValuePair(containerId, type) {
+                const container = document.getElementById(containerId);
+                const row = document.createElement('div');
+                row.className = 'key-value-row';
+                row.innerHTML = `
+                    <input type="text" class="form-input ${type}-key" placeholder="${type === 'header' ? 'Header name' : 'Parameter name'}">
+                    <input type="text" class="form-input ${type}-value" placeholder="${type === 'header' ? 'Header value' : 'Parameter value'}">
+                    <button type="button" class="btn btn-danger remove-pair">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(row);
+            }
+
+            removeKeyValuePair(button) {
+                const container = button.closest('.key-value-container');
+                const rows = container.querySelectorAll('.key-value-row');
+                if (rows.length > 1) {
+                    button.closest('.key-value-row').remove();
+                }
+            }
+
+            switchTab(tabName) {
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                document.getElementById(`${tabName}-content`).classList.add('active');
+            }
+
+            collectHeaders() {
+                const headers = {};
+                document.querySelectorAll('#headersContainer .key-value-row').forEach(row => {
+                    const key = row.querySelector('.header-key').value.trim();
+                    const value = row.querySelector('.header-value').value.trim();
+                    if (key && value) headers[key] = value;
+                });
+                return headers;
+            }
+
+            collectParams() {
+                const params = {};
+                document.querySelectorAll('#paramsContainer .key-value-row').forEach(row => {
+                    const key = row.querySelector('.param-key').value.trim();
+                    const value = row.querySelector('.param-value').value.trim();
+                    if (key && value) params[key] = value;
+                });
+                return params;
+            }
+
+            buildURL(baseUrl, params) {
+                const url = new URL(baseUrl);
+                Object.keys(params).forEach(key => {
+                    url.searchParams.append(key, params[key]);
+                });
+                return url.toString();
+            }
+
+            async sendRequest() {
+                const url = document.getElementById('apiUrl').value;
+                const method = document.getElementById('httpMethod').value;
+                const headers = this.collectHeaders();
+                const params = this.collectParams();
+                const body = document.getElementById('requestBody').value.trim();
+
+                const sendButton = document.getElementById('sendButton');
+                const originalContent = sendButton.innerHTML;
+                sendButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                sendButton.disabled = true;
+
+                this.showLoading();
+
+                try {
+                    const finalUrl = this.buildURL(url, params);
+                    const requestOptions = {
+                        method: method,
+                        headers: headers
+                    };
+
+                    // Only add Content-Type if there's a body and it's not already specified
+                    if ((method === 'POST' || method === 'PUT' || method === 'PATCH') && body) {
+                        if (!headers['Content-Type'] && !headers['content-type']) {
+                            requestOptions.headers['Content-Type'] = 'application/json';
+                        }
+                        requestOptions.body = body;
+                    }
+
+                    const startTime = performance.now();
+                    const response = await fetch(finalUrl, requestOptions);
+                    const endTime = performance.now();
+                    const responseTime = Math.round(endTime - startTime);
+                    
+                    const responseText = await response.text();
+                    let responseData;
+                    
+                    try {
+                        responseData = JSON.parse(responseText);
+                    } catch (e) {
+                        responseData = responseText;
+                    }
+
+                    this.displayResponse(response, responseData, responseText, responseTime);
+                    this.extractAndDisplayMedia(responseData);
+                    this.extractAndDisplayLinks(responseData);
+
+                } catch (error) {
+                    this.displayError(error.message);
+                } finally {
+                    sendButton.innerHTML = originalContent;
+                    sendButton.disabled = false;
+                }
+            }
+
+            showLoading() {
+                const loadingHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Processing request...
+                    </div>
+                `;
+                
+                document.getElementById('formattedJson').innerHTML = loadingHTML;
+                document.getElementById('rawJson').innerHTML = loadingHTML;
+                document.getElementById('mediaDisplay').innerHTML = loadingHTML;
+                document.getElementById('linksDisplay').innerHTML = loadingHTML;
+                document.getElementById('statusBar').innerHTML = '';
+            }
+
+            displayResponse(response, data, rawText, responseTime) {
+                const statusClass = response.ok ? 'status-success' : 'status-error';
+                const statusIcon = response.ok ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+                
+                document.getElementById('statusBar').innerHTML = `
+                    <div class="status-card ${statusClass}">
+                        <i class="${statusIcon}"></i>
+                        <div>
+                            <strong>Status:</strong> ${response.status} ${response.statusText} | 
+                            <strong>Time:</strong> ${responseTime}ms | 
+                            <strong>Type:</strong> ${response.headers.get('content-type') || 'Unknown'}
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('formattedJson').innerHTML = `
+                    <button class="copy-btn" title="Copy to clipboard">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    ${this.syntaxHighlight(data)}
+                `;
+
+                document.getElementById('rawJson').innerHTML = `
+                    <button class="copy-btn" title="Copy to clipboard">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    ${this.escapeHtml(rawText)}
+                `;
+            }
+
+            displayError(message) {
+                const errorHTML = `
+                    <div class="status-card status-error">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div><strong>Error:</strong> ${message}</div>
+                    </div>
+                `;
+                
+                document.getElementById('statusBar').innerHTML = errorHTML;
+                
+                const errorContent = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle" style="color: var(--danger-fg);"></i>
+                        <h3>Request Failed</h3>
+                        <p>${message}</p>
+                    </div>
+                `;
+                
+                document.getElementById('formattedJson').innerHTML = errorContent;
+                document.getElementById('rawJson').innerHTML = errorContent;
+                document.getElementById('mediaDisplay').innerHTML = errorContent;
+                document.getElementById('linksDisplay').innerHTML = errorContent;
+            }
+
+            syntaxHighlight(obj) {
+                if (typeof obj !== 'object') {
+                    return this.escapeHtml(String(obj));
+                }
+
+                let json = JSON.stringify(obj, null, 2);
+                json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                
+                return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                    let cls = 'json-number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'json-key';
+                        } else {
+                            cls = 'json-string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'json-boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'json-null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            extractAndDisplayMedia(data) {
+                this.mediaGroups = this.findMediaGroups(data);
+                this.displayMediaContent(this.mediaGroups, 'mediaDisplay', 'media', 'fas fa-photo-video');
+            }
+
+            extractAndDisplayLinks(data) {
+                const links = this.findContent(data, this.linkKeys, this.isLinkUrl.bind(this));
+                this.displayContent(links, 'linksDisplay', 'links', 'fas fa-link');
+            }
+
+            findMediaGroups(obj, path = '', groups = []) {
+                if (Array.isArray(obj)) {
+                    // Check if this array contains media URLs
+                    const arrayImages = [];
+                    const arrayVideos = [];
+                    
+                    obj.forEach((item, index) => {
+                        if (typeof item === 'string' && this.isMediaUrl(item, 'array_item')) {
+                            const mediaData = { url: item, source: `${path}[${index}]` };
+                            if (this.isVideoUrl(item)) {
+                                arrayVideos.push(mediaData);
+                            } else {
+                                arrayImages.push(mediaData);
+                            }
+                        } else if (item && typeof item === 'object') {
+                            // Continue searching in array items
+                            this.findMediaGroups(item, `${path}[${index}]`, groups);
+                        }
+                    });
+                    
+                    // If this array has media, create a group
+                    if (arrayImages.length > 0 || arrayVideos.length > 0) {
+                        groups.push({
+                            groupName: path || 'root',
+                            groupPath: path,
+                            images: arrayImages,
+                            videos: arrayVideos
+                        });
+                    }
+                } else if (obj && typeof obj === 'object') {
+                    Object.keys(obj).forEach(key => {
+                        const currentPath = path ? `${path}.${key}` : key;
+                        const value = obj[key];
+                        
+                        if (Array.isArray(value)) {
+                            // Handle arrays specially
+                            this.findMediaGroups(value, currentPath, groups);
+                        } else if (typeof value === 'string' && this.isMediaUrl(value, key)) {
+                            // Single media item - create individual group
+                            const mediaData = { url: value, source: currentPath };
+                            if (this.isVideoUrl(value)) {
+                                groups.push({
+                                    groupName: currentPath,
+                                    groupPath: currentPath,
+                                    images: [],
+                                    videos: [mediaData]
+                                });
+                            } else {
+                                groups.push({
+                                    groupName: currentPath,
+                                    groupPath: currentPath,
+                                    images: [mediaData],
+                                    videos: []
+                                });
+                            }
+                        } else if (typeof value === 'object') {
+                            this.findMediaGroups(value, currentPath, groups);
+                        }
+                    });
+                }
+                
+                return groups;
+            }
+
+            findContent(obj, keys, validator, path = '', content = []) {
+                if (Array.isArray(obj)) {
+                    obj.forEach((item, index) => {
+                        this.findContent(item, keys, validator, `${path}[${index}]`, content);
+                    });
+                } else if (obj && typeof obj === 'object') {
+                    Object.keys(obj).forEach(key => {
+                        const currentPath = path ? `${path}.${key}` : key;
+                        const value = obj[key];
+                        
+                        if (typeof value === 'string' && validator(value, key)) {
+                            content.push({ url: value, source: currentPath });
+                        } else if (typeof value === 'object') {
+                            this.findContent(value, keys, validator, currentPath, content);
+                        }
+                    });
+                }
+                
+                return content;
+            }
+
+            displayMediaContent(groups, containerId, type, iconClass) {
+                const container = document.getElementById(containerId);
+
+                if (groups.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="${iconClass}"></i>
+                            <h3>No Media Found</h3>
+                            <p>No images or videos were detected using the configured keys.<br>
+                            <small>Current keys: ${this.mediaKeys.join(', ')}</small></p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const grid = document.createElement('div');
+                grid.className = 'content-grid';
+
+                groups.forEach((group, groupIndex) => {
+                    // Show first image from each group as representative
+                    const representativeImage = group.images[0];
+                    if (representativeImage) {
+                        const card = document.createElement('div');
+                        card.className = 'content-card';
+
+                        // Add click event to open gallery modal for this group
+                        card.addEventListener('click', () => {
+                            this.openGalleryModal(group);
+                        });
+
+                        const imageContainer = document.createElement('div');
+                        imageContainer.style.position = 'relative';
+                        imageContainer.style.height = '200px';
+                        imageContainer.style.overflow = 'hidden';
+
+                        const img = document.createElement('img');
+                        img.src = representativeImage.url;
+                        img.alt = `Group ${groupIndex + 1}`;
+                        img.loading = 'lazy';
+                        img.style.height = '100%';
+                        img.style.width = '100%';
+                        img.style.objectFit = 'cover';
+                        
+                        const overlay = document.createElement('div');
+                        overlay.className = 'image-overlay';
+                        overlay.innerHTML = `
+                            <div style="text-align: center;">
+                                <i class="fas fa-expand" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><br>
+                                <span style="font-size: 0.875rem;">${group.images.length} image${group.images.length !== 1 ? 's' : ''}</span>
+                                ${group.videos.length > 0 ? `<br><span style="font-size: 0.875rem;">${group.videos.length} video${group.videos.length !== 1 ? 's' : ''}</span>` : ''}
+                            </div>
+                        `;
+
+                        img.onerror = function() {
+                            this.style.display = 'none';
+                            const errorDiv = document.createElement('div');
+                            errorDiv.style.padding = '2rem';
+                            errorDiv.style.textAlign = 'center';
+                            errorDiv.style.color = 'var(--danger-fg)';
+                            errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i><br><small>Failed to load</small>';
+                            this.parentNode.appendChild(errorDiv);
+                        };
+
+                        imageContainer.appendChild(img);
+                        imageContainer.appendChild(overlay);
+                        card.appendChild(imageContainer);
+
+                        const info = document.createElement('div');
+                        info.className = 'content-info';
+                        info.innerHTML = `
+                            <div class="content-source">${group.groupName}</div>
+                            <div style="font-size: 0.6875rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                ${group.images.length} image${group.images.length !== 1 ? 's' : ''}
+                                ${group.videos.length > 0 ? ` • ${group.videos.length} video${group.videos.length !== 1 ? 's' : ''}` : ''}
+                            </div>
+                            <div class="content-url">
+                                <a href="${representativeImage.url}" target="_blank" rel="noopener noreferrer">
+                                    ${representativeImage.url}
+                                </a>
+                            </div>
+                        `;
+
+                        card.appendChild(info);
+                        grid.appendChild(card);
+                    } else if (group.videos.length > 0) {
+                        // If no images but has videos, show video card
+                        const card = document.createElement('div');
+                        card.className = 'content-card';
+
+                        card.addEventListener('click', () => {
+                            this.openGalleryModal(group);
+                        });
+
+                        const videoContainer = document.createElement('div');
+                        videoContainer.className = 'video-preview';
+                        videoContainer.innerHTML = `
+                            <i class="fas fa-play-circle"></i>
+                            <span>${group.videos.length} Video${group.videos.length !== 1 ? 's' : ''}</span>
+                        `;
+                        card.appendChild(videoContainer);
+
+                        const info = document.createElement('div');
+                        info.className = 'content-info';
+                        info.innerHTML = `
+                            <div class="content-source">${group.groupName}</div>
+                            <div style="font-size: 0.6875rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                ${group.videos.length} video${group.videos.length !== 1 ? 's' : ''}
+                            </div>
+                            <div class="content-url">
+                                <a href="${group.videos[0].url}" target="_blank" rel="noopener noreferrer">
+                                    ${group.videos[0].url}
+                                </a>
+                            </div>
+                        `;
+
+                        card.appendChild(info);
+                        grid.appendChild(card);
+                    }
+                });
+
+                const totalImages = groups.reduce((sum, group) => sum + group.images.length, 0);
+                const totalVideos = groups.reduce((sum, group) => sum + group.videos.length, 0);
+
+                container.innerHTML = `
+                    <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); font-size: 0.875rem;">
+                        <i class="${iconClass}" style="color: var(--accent-fg);"></i>
+                        Found ${groups.length} group${groups.length !== 1 ? 's' : ''} (${totalImages} images, ${totalVideos} videos)
+                    </h3>
+                `;
+                container.appendChild(grid);
+            }
+
+            displayContent(content, containerId, type, iconClass) {
+                const container = document.getElementById(containerId);
+
+                if (content.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="${iconClass}"></i>
+                            <h3>No ${type.charAt(0).toUpperCase() + type.slice(1)} Found</h3>
+                            <p>No ${type} were detected using the configured keys.<br>
+                            <small>Current keys: ${type === 'links' ? this.linkKeys.join(', ') : this.mediaKeys.join(', ')}</small></p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const grid = document.createElement('div');
+                grid.className = 'content-grid';
+
+                content.forEach((contentData, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'content-card';
+
+                    const linkPreview = document.createElement('div');
+                    linkPreview.style.padding = '2rem';
+                    linkPreview.style.textAlign = 'center';
+                    linkPreview.style.background = 'var(--bg-subtle)';
+                    linkPreview.style.borderBottom = '1px solid var(--border-default)';
+                    linkPreview.style.height = '200px';
+                    linkPreview.style.display = 'flex';
+                    linkPreview.style.flexDirection = 'column';
+                    linkPreview.style.justifyContent = 'center';
+                    linkPreview.innerHTML = `
+                        <i class="fas fa-external-link-alt" style="font-size: 2rem; color: var(--accent-fg); margin-bottom: 0.5rem;"></i>
+                        <div style="font-size: 0.75rem; color: var(--text-secondary);">External Link</div>
+                    `;
+                    card.appendChild(linkPreview);
+
+                    const info = document.createElement('div');
+                    info.className = 'content-info';
+                    info.innerHTML = `
+                        <div class="content-source">${contentData.source}</div>
+                        <div class="content-url">
+                            <a href="${contentData.url}" target="_blank" rel="noopener noreferrer">
+                                ${contentData.url}
+                            </a>
+                        </div>
+                    `;
+
+                    card.appendChild(info);
+                    grid.appendChild(card);
+                });
+
+                container.innerHTML = `
+                    <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--text-primary); font-size: 0.875rem;">
+                        <i class="${iconClass}" style="color: var(--accent-fg);"></i>
+                        Found ${content.length} ${type}${content.length !== 1 ? '' : type.slice(0, -1)}
+                    </h3>
+                `;
+                container.appendChild(grid);
+            }
+
+            isMediaUrl(url, key) {
+                if (!url || typeof url !== 'string') return false;
+                
+                const hasMediaKey = this.mediaKeys.some(mediaKey => 
+                    key.toLowerCase().includes(mediaKey.toLowerCase())
+                );
+                
+                const mediaExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|svg|mp4|avi|mov|wmv|flv|webm|mkv|m4v|3gp|ogv)(\?.*)?$/i;
+                const hasMediaExtension = mediaExtensions.test(url);
+                
+                const isValidUrl = /^https?:\/\/.+/i.test(url);
+                
+                return isValidUrl && (hasMediaKey || hasMediaExtension);
+            }
+
+            isVideoUrl(url) {
+                if (!url || typeof url !== 'string') return false;
+                
+                const videoExtensions = /\.(mp4|avi|mov|wmv|flv|webm|mkv|m4v|3gp|ogv)(\?.*)?$/i;
+                const hasVideoExtension = videoExtensions.test(url);
+                
+                // Check for video-related keywords in URL
+                const videoKeywords = /video|movie|clip|stream|watch/i;
+                const hasVideoKeyword = videoKeywords.test(url);
+                
+                return hasVideoExtension || hasVideoKeyword;
+            }
+
+            isLinkUrl(url, key) {
+                if (!url || typeof url !== 'string') return false;
+                
+                const hasLinkKey = this.linkKeys.some(linkKey => 
+                    key.toLowerCase().includes(linkKey.toLowerCase())
+                );
+                
+                const isValidUrl = /^https?:\/\/.+/i.test(url);
+                
+                // Exclude media URLs from links
+                const mediaExtensions = /\.(jpg|jpeg|png|gif|bmp|webp|svg|mp4|avi|mov|wmv|flv|webm|mkv|m4v|3gp|ogv)(\?.*)?$/i;
+                const isMediaUrl = mediaExtensions.test(url);
+                
+                return isValidUrl && hasLinkKey && !isMediaUrl;
+            }
+
+            copyToClipboard(button) {
+                const container = button.closest('.code-block');
+                const text = container.textContent.replace('Copy to clipboard', '').trim();
+                
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalIcon = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    button.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        button.innerHTML = originalIcon;
+                        button.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new APITesterProfessional();
+        });
+    </script>
+</body>
+</html>
